@@ -1,6 +1,6 @@
 var fs = require("fs")
 
-var content = fs.readFileSync('./../transaction.json')
+var content = fs.readFileSync('./../test_case2/transaction.json')
 var parsedJson = JSON.parse(content)
 
 var validators = {
@@ -14,7 +14,7 @@ var validators = {
    // "creation_time" : "2017-02-09T10:49:34.000Z",
    "example" :
      {
-     "batu" : function(x){return (x==0)},
+     "batu" : function(x){return (x=="foobar")},
      "man" : function(x){return (x==1)}
      },
 
@@ -151,4 +151,4 @@ function validate(validators, parsedJson){
 
 module.exports = validate(validators,parsedJson)
 
-// console.log(validate(validators,parsedJson))
+console.log(validate(validators,parsedJson))
