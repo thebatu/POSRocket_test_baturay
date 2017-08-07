@@ -12,6 +12,8 @@ function validate(lis,j){
     var test = JSON.parse(j)
 
     for(var c in lis){
+      console.log(c);
+      console.log(lis[c]), typeof (test[c] === 'number');
        if(!(lis[c](test[c]))){
            return false
         }
