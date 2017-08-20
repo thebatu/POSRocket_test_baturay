@@ -33,13 +33,19 @@ var validators = {
 //{key:function()}
 function validate(validators, parsedJson){
     for(var key in validators){
+      console.log("key = " , key);
+      
       //check if the key has an array subtree
         if(Array.isArray(parsedJson[key])){
             for(var subKey in parsedJson[key]){
+              console.log("subKey = " , subKey);
+              debugger
+
                 if(!validate(validators[key],parsedJson[key][subKey])){
                     return false
                 }
             }
+
             //check if the json file has a object subtree
         }else if(typeof parsedJson[key] === 'object'){
               if(!validate(validators[key],parsedJson[key])){
