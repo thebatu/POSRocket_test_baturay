@@ -3,44 +3,45 @@
     var fs = require("fs");
     var content = fs.readFileSync('./transaction.json');
     var parsedJson = JSON.parse(content);
-    var _transactionValidatorObject = {};
 
-    function transactionValidator(dataFromJson) {
-      return new Promise(function(resolve, reject) {
+    function transactionValidator(dataFromJson){
+      var _transactionValidatorObject = {};
 
-        function id(dataFromJson) {
-          return new Promise(function(resolve, reject) {
-            if (dataFromJson == "589c493e5f2687111bb6d800") {
-              resolve(true);
-            } else {
-              reject(Error("wrong id"));
-            }
-          })
-        };
+      function validateAgainstJson(?????){
+        return new Promise(function(resolve, reject){
 
-        function business_id(dataFromJson) {
-          return new Promise(function(resolve, reject) {
-            if (dataFromJson == "3f522ee8-7e69-4d78-aeb5-5278aaf21558") {
-              resolve(true)
-            } else {
-              reject(Error('wrong business_id'))
-            }
-          })
-        };
+          function id(dataFromJson){
+            return new Promise(function(resolve, reject){
+              if (dataFromJson == "589c493e5f2687111bb6d800"){
+                resolve(true);
+              } else {
+                reject(Error("wrong id"));
+              }
+            })
+          };
 
-        function location_id(dataFromJson) {
-          return new Promise(function(resolve, reject) {
-            if (dataFromJson == "96e9975b-b1bf-47ee-aeaf-63518022e95e") {
-              resolve(true)
-            } else {
-              reject(Error('wrong location_id'))
-            }
-          })
-        };
+          function business_id(dataFromJson){
+            return new Promise(function(resolve, reject){
+              if (dataFromJson == "3f522ee8-7e69-4d78-aeb5-5278aaf21558") {
+                resolve(true)
+              } else {
+                reject(Error('wrong business_id'))
+              }
+            })
+          };
 
-      })
+          function location_id(dataFromJson) {
+            return new Promise(function(resolve, reject) {
+              if (dataFromJson == "96e9975b-b1bf-47ee-aeaf-63518022e95e"){
+                resolve(true)
+              } else {
+                reject(Error('wrong location_id'))
+              }
+            })
+          };
+
+        })
     }
-
     var validators = {
       "_id": transactionValidator.id,
       "business_id": transactionValidator.business_id,
@@ -69,7 +70,8 @@
 
     //{key:function()}
     _transactionValidatorObject.validate = function(validators, parsedJson) {
-      return new Promise(function(resolve, reject) {
+      return new Promise.all(function(resolve, reject) {
+        console.log("here");
         for (var key in validators) {
           //check if the key has an array subtree
           if (Array.isArray(parsedJson[key])) {
@@ -94,10 +96,11 @@
     }
 
     return _transactionValidatorObject;
+  }
 
-    if (typeof(global.transactionValidator) === 'undefined') {
-      global.transactionValidator = transactionValidator();
-    }
+  if (typeof(global.transactionValidator) === 'undefined') {
+    global.transactionValidator = transactionValidator();
+  }
+  console.log(transactionValidator(????));
 
-    console.log(validate(validators, parsedJson))
 })(this);
